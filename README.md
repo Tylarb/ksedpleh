@@ -1,16 +1,20 @@
 # ksedpleh
-Help Desk software
+Help Desk software for the fake kernel team
 
-http://ksedpleh.hopto.org/
+SUMMARY:
+========
 
-Helpful link: https://m.reddit.com/r/webdev/comments/3e33gf/advice_on_a_database_solution_for_a_ticketing/
+A tool for automated analysis for kernel-space issues
 
-Coding in Python with Django with SQL database
+Roadmap:
+
+Reboot RCA
+
+Oracle database tuning 
+
+Performance troubleshooting
+
+..... more to come
 
 
-Roadmap: 
-1. Landing page and ticket search using post command
-2. Ticket display page
-3. Ticket search page
 
-Enable SQL database creation for tickets and search.
