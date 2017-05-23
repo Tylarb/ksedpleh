@@ -1,4 +1,16 @@
 #!/bin/bash
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+source $DIR/reboot_rca.sh
+source $DIR/oracle_tune.sh
+source $DIR/kdump_check.sh
+
 OPTIND=1
 
 # Usage info
@@ -27,19 +39,19 @@ fi
 
 # setting some variables
 # hardware make
-if grep 'Manufacturer: VMware, Inc.' dmidecode
+if grep 'Manufacturer: VMware, Inc.' dmidecode &>/dev/null
 then
   hardware='vmware'
-elseif grep 'Manufacturer: HP' dmidecode
+elif grep -E 'Manufacturer: HP|Manufacturer: Hewlett-Packard' dmidecode &>/dev/null
 then
   hardware='hp'
-elseif grep 'Manufacturer: Dell Inc.' dmidecode
+elif grep 'Manufacturer: Dell Inc.' dmidecode &>/dev/null
 then
   hardware='dell'
 else
   hardware=''
 fi
-
+echo $hardware
 
 kdump_check() {
   echo
@@ -47,20 +59,7 @@ kdump_check() {
 
 reboot_rca() {
   echo
-
-if ! grep mockbuild var/log/messages*
-then
-  echo "I do not see a record of recent reboots in the included logs. Please ensure that
- all relevant logs are included in the case. Feel free to create a tar file of all
- relevant logs and upload them to the case
-
-$ grep mockbuild/var/log/messsages* | wc -l
-0"
-else
-  echo "I see these instances of recent reboots:"
-  echo '$grep mockbuild var/log/messages*'
-  grep mockbuild var/log/messages*
-fi
+  reboot_rca_main
 
 }
 
