@@ -51,7 +51,6 @@ then
 else
   hardware=''
 fi
-echo $hardware
 
 kdump_check() {
   echo

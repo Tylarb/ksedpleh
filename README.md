@@ -10,7 +10,7 @@ Roadmap:
 
 Reboot RCA
 
-Oracle database tuning 
+Oracle database tuning
 
 Performance troubleshooting
 
@@ -19,5 +19,6 @@ Kdump check
 Hung system check
 
 
-
-
+GENERAL CONTRIBUTION NOTES:
+===========================
+Prefered line length is 100 characters
