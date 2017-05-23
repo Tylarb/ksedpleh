@@ -26,6 +26,19 @@ fi
 
 
 # setting some variables
+# hardware make
+if grep 'Manufacturer: VMware, Inc.' dmidecode
+then
+  hardware='vmware'
+elseif grep 'Manufacturer: HP' dmidecode
+then
+  hardware='hp'
+elseif grep 'Manufacturer: Dell Inc.' dmidecode
+then
+  hardware='dell'
+else
+  hardware=''
+fi
 
 
 kdump_check() {
