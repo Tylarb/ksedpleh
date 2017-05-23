@@ -21,8 +21,6 @@ fi
 
 if [ "$hardware" == "hp" ]
 then
-  echo
-  echo
   echo '
 This appears to be an HP system. Can you please review the IML logs and determine if this system was
  rebooted by HP ASM?
