@@ -14,7 +14,10 @@ Oracle database tuning
 
 Performance troubleshooting
 
-..... more to come
+Kdump check
+
+Hung system check
+
 
 
 
