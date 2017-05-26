@@ -19,6 +19,8 @@ else
   grep mockbuild var/log/messages*
 fi
 
+
+# hardware specific check
 if [ "$hardware" == "hp" ]
 then
   echo '
@@ -28,6 +30,30 @@ This appears to be an HP system. Can you please review the IML logs and determin
   Why does HP server reboot or shutdown unexpectedly?
   https://access.redhat.com/solutions/3003
 '
+
 fi
 
+## check to see if system is clustered https://blogs.oracle.com/myoraclediary/clusterware-processes-in-11g-rac-r2-environment
+if grep -E 'rgmanager|pacemaker' installed-rpms &>/dev/null
+then
+  echo '
+This system appears to be clustered using Red Hat provided clustering software. Please upload
+ sosreports from the other nodes in this clsuter so that analysis can be completed. I am
+ transitioning this case to our clustering team for further analysis at this time.
+
+$ grep -E "rgmanager|pacemaker" installed-rpms'
+grep -E 'rgmanager|pacemaker' installed-rpms
+
+
+  #looking for oracle clustering
+elif grep -E 'crsd.bin|cssdmonitor|cssdagent|ocssd.bin|evmlogger.bin|evmd.bin|orarootagent|octssd.bin|osysmond|gpnpd.bin|gipcd.bin' ps &>/dev/null
+then
+  echo '
+This system appears to be clustered using an Oracle clustering. Please open a parallel ticket with
+ Oracle and confirm if this issue was a fence event.
+
+$ grep -E "crsd.bin|cssdmonitor|cssdagent|ocssd.bin|evmlogger.bin|evmd.bin|orarootagent|octssd.bin|osysmond|gpnpd.bin|gipcd.bin" ps'
+
+  grep -E 'crsd.bin|cssdmonitor|cssdagent|ocssd.bin|evmlogger.bin|evmd.bin|orarootagent|octssd.bin|osysmond|gpnpd.bin|gipcd.bin' ps
+fi
 }
