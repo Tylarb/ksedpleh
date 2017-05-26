@@ -33,7 +33,7 @@ This appears to be an HP system. Can you please review the IML logs and determin
 
 fi
 
-## check to see if system is clustered https://blogs.oracle.com/myoraclediary/clusterware-processes-in-11g-rac-r2-environment
+## check to see if system is clustered
 if grep -E 'rgmanager|pacemaker' installed-rpms &>/dev/null
 then
   echo '
@@ -45,11 +45,12 @@ $ grep -E "rgmanager|pacemaker" installed-rpms'
 grep -E 'rgmanager|pacemaker' installed-rpms
 
 
-  #looking for oracle clustering
+  # looking for oracle clustering
+  # https://blogs.oracle.com/myoraclediary/clusterware-processes-in-11g-rac-r2-environment
 elif grep -E 'crsd.bin|cssdmonitor|cssdagent|ocssd.bin|evmlogger.bin|evmd.bin|orarootagent|octssd.bin|osysmond|gpnpd.bin|gipcd.bin' ps &>/dev/null
 then
   echo '
-This system appears to be clustered using an Oracle clustering. Please open a parallel ticket with
+This system appears to be using Oracle Clustering software. Please open a parallel ticket with
  Oracle and confirm if this issue was a fence event.
 
 $ grep -E "crsd.bin|cssdmonitor|cssdagent|ocssd.bin|evmlogger.bin|evmd.bin|orarootagent|octssd.bin|osysmond|gpnpd.bin|gipcd.bin" ps'
