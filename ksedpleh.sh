@@ -13,6 +13,9 @@ source $DIR/kdump_check.sh
 
 OPTIND=1
 
+block='
+==================================================================================================='
+
 # Usage info
 
 show_help() {
@@ -95,6 +98,9 @@ while getopts "hkro" opt; do
   ;;
   esac
 done
+
+echo $block
+
 
 
 shift $((OPTIND-1))

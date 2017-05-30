@@ -13,6 +13,7 @@ $ grep mockbuild/var/log/messsages* | wc -l
 exit 0
 else
   echo
+  echo $block
   echo "I see these instances of recent reboots:"
   echo
   echo '$ grep mockbuild var/log/messages*'
@@ -23,6 +24,7 @@ fi
 # hardware specific check
 if [ "$hardware" == "hp" ]
 then
+  echo $block
   echo '
 This appears to be an HP system. Can you please review the IML logs and determine if this system was
  rebooted by HP ASM?
@@ -36,6 +38,7 @@ fi
 ## check to see if system is clustered
 if grep -E 'rgmanager|pacemaker' installed-rpms &>/dev/null
 then
+  echo $block
   echo '
 This system appears to be clustered using Red Hat provided clustering software. Please upload
  sosreports from the other nodes in this clsuter so that analysis can be completed. I am
@@ -49,6 +52,7 @@ grep -E 'rgmanager|pacemaker' installed-rpms
   # https://blogs.oracle.com/myoraclediary/clusterware-processes-in-11g-rac-r2-environment
 elif grep -E 'crsd.bin|cssdmonitor|cssdagent|ocssd.bin|evmlogger.bin|evmd.bin|orarootagent|octssd.bin|osysmond|gpnpd.bin|gipcd.bin' ps &>/dev/null
 then
+  echo $block
   echo '
 This system appears to be using Oracle Clustering software. Please open a parallel ticket with
  Oracle and confirm if this issue was a fence event.
