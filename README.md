@@ -8,6 +8,8 @@ A tool for automated analysis for kernel-space issues
 
 Roadmap:
 
+Add action plan variables given data provided
+
 Reboot RCA
 
 Oracle database tuning
