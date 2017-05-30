@@ -21,6 +21,9 @@ else
 fi
 
 
+
+
+
 # hardware specific check
 if [ "$hardware" == "hp" ]
 then
