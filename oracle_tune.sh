@@ -25,8 +25,8 @@ sem='250 32000 100 128'
 sys_mem=$(awk '/Mem/ {mem = $2 * 1024; print mem}' free)
 pg_size=4096
 
-shmall=$(expr $mem \* 75 / 100 / $page + 1)
-shmmax=$(expr $all \* $page)
+shmall=$(expr $sys_mem \* 75 / 100 / $pg_size + 1)
+shmmax=$(expr $shmall \* $pg_size)
 shmmni=4096
 
 

@@ -67,6 +67,7 @@ reboot_rca() {
 
 oracle_tune() {
   echo
+  oracle_tune_main
 }
 
 
