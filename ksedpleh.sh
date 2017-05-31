@@ -70,6 +70,11 @@ oracle_tune() {
   oracle_tune_main
 }
 
+run_all() {
+  kdump_check
+  oracle_tune
+  reboot_rca
+}
 
 
 
@@ -77,7 +82,7 @@ oracle_tune() {
 
 # inputs
 
-while getopts "hkro" opt; do
+while getopts "hkroa" opt; do
   case "$opt" in
 
   h)
@@ -92,6 +97,9 @@ while getopts "hkro" opt; do
   ;;
   o)
   oracle_tune
+  ;;
+  a)
+  run_all
   ;;
   *)
   show_help
