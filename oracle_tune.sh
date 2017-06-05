@@ -30,7 +30,7 @@ shmmax=$(expr $shmall \* $pg_size)
 shmmni=4096
 
 echo '
-Looking at the tunables set on this system:
+Looking at the tuneables set on this system:
 '
 # vm tuneables
 for vmtune in swappiness dirty_background_ratio dirty_ratio dirty_expire_centisecs dirty_writeback_centisecs
