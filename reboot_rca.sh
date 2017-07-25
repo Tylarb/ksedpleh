@@ -58,10 +58,24 @@ then
   echo $block
   echo '
 This system appears to be using Oracle Clustering software. Please open a parallel ticket with
- Oracle and confirm if this issue was a fence event.
+ Oracle and confirm if this issue was a fence event and to obtain their analysis on the root cause.
 
 $ grep -E "crsd.bin|cssdmonitor|cssdagent|ocssd.bin|evmlogger.bin|evmd.bin|orarootagent|octssd.bin|osysmond|gpnpd.bin|gipcd.bin" ps'
 
   grep -E 'crsd.bin|cssdmonitor|cssdagent|ocssd.bin|evmlogger.bin|evmd.bin|orarootagent|octssd.bin|osysmond|gpnpd.bin|gipcd.bin' ps
+
+  # looking for Veritas clustering
+  # https://origin-download.veritas.com/resources/content/live/DOCUMENTATION/5000/DOC5867/en_US/vcs_install_601_lin.pdf
+elif grep VRTSgab ps &>/dev/null
+then
+  echo $block
+  echo '
+This system appears to be utilizing Veritas Clustering software. Please open a parallel ticket with
+ Veritas for confirmation on if this issue was a fence event and obtain their analysis on the root
+ cause.
+
+$ grep VRTSgab ps'
+   grep VRTSgab ps
+
 fi
 }
