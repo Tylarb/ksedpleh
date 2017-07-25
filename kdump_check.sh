@@ -1,5 +1,7 @@
 #!/bin/bash
 
+kdump_check_main() {
+
 echo '$ grep kexec installed-rpms'
 grep kexec installed-rpms
 echo
@@ -17,10 +19,11 @@ cat df
 echo
 echo '$ cat proc/sys/kernel/panic_on_io_nmi'
 cat proc/sys/kernel/panic_on_io_nmi
-echo 
+echo
 echo '$ cat proc/sys/kernel/unknown_nmi_panic'
 cat proc/sys/kernel/unknown_nmi_panic
-echo 
-echo '$ cat proc/sys/kernel/panic_on_unrecovered_nmi' 
+echo
+echo '$ cat proc/sys/kernel/panic_on_unrecovered_nmi'
 cat proc/sys/kernel/panic_on_unrecovered_nmi
 
+}

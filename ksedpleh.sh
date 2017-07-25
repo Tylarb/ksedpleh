@@ -57,6 +57,7 @@ fi
 
 kdump_check() {
   echo
+  kdump_check_main
 }
 
 reboot_rca() {
