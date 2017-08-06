@@ -66,3 +66,12 @@ done
 echo '$ cat proc/sys/kernel/sem'
 echo -e "$(cat proc/sys/kernel/sem) \t<=== We recommend at least $sem"
 }
+
+# hugepages
+
+# Consider configuring hugepgages if you are not using Oracle Automatic Memory management
+
+
+# THOP
+
+# IO scheduler
