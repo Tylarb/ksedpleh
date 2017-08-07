@@ -55,6 +55,10 @@ else
   hardware=''
 fi
 
+# kernel version/RHEL version
+
+
+
 kdump_check() {
   echo
   kdump_check_main
