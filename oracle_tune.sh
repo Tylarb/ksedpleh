@@ -12,7 +12,8 @@ As this system is running an Oracle Database, I am checking to confirm that it i
 '
 echo $block
 
-sys_tune
+sys_tune_check
+hugepage_check
 
 }
 
@@ -20,7 +21,7 @@ sys_tune
 
 ## need to add some logic to setting dirty_background_ratio/dirty_ratio
 
-sys_tune() {
+sys_tune_check() {
   swappiness=10
   dirty_background_ratio=3
   dirty_ratio=40
@@ -76,11 +77,19 @@ sys_tune() {
 }
 
 # hugepages
+hugepage_check() {
+  hp=$(grep HugePages_Total proc/meminfo | awk '{print $2}')
+  if [[ $hp == '0' ]]; then
+    echo
+    echo 'Consider configuring hugepgages if you are not using Oracle Automatic Memory management'
+
+    # need logic on RHEL version
+  fi
+}
 
 
 # Consider configuring hugepgages if you are not using Oracle Automatic Memory management
 
 
 # THOP
-
 # IO scheduler

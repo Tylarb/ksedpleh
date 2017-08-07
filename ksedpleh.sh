@@ -10,6 +10,8 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 source $DIR/reboot_rca.sh
 source $DIR/oracle_tune.sh
 source $DIR/kdump_check.sh
+VERSION_LIST="$DIR/kernel_list.txt"
+
 
 OPTIND=1
 
@@ -32,33 +34,47 @@ then
   exit 1
 fi
 
+# Is this a sosreport?
 if [ ! -e etc/redhat-release ]
 then
   echo "Must be run in sosreport directory"
   exit 1
 fi
 
-
+# Is this RHEL?
+if ! grep -q 'Red Hat' etc/redhat-release
+then
+  echo 'This does not appear to be a system running Red Hat Linux'
+  echo 'grep "Red Hat" etc/redhat-release'
+  grep "Red Hat" etc/redhat-release
+  exit 1
+fi
 
 # setting some variables
 # hardware make
-if grep 'Manufacturer: VMware, Inc.' dmidecode &>/dev/null
+if grep -q 'Manufacturer: VMware, Inc.' dmidecode
 then
   hardware='vmware'
-elif grep -E 'Manufacturer: HP|Manufacturer: Hewlett-Packard' dmidecode &>/dev/null
+elif grep -q -E 'Manufacturer: HP|Manufacturer: Hewlett-Packard' dmidecode
 then
   hardware='hp'
-elif grep 'Manufacturer: Dell Inc.' dmidecode &>/dev/null
+elif grep -q 'Manufacturer: Dell Inc.' dmidecode
 then
   hardware='dell'
 else
   hardware=''
 fi
 
-# kernel version/RHEL version
-
-
-
+# kernel version/RHEL version  EDIT HERE
+kernel_version_full=$(awk '{print $3}' uname)
+kernel_version_short=$(awk '{print $3}' uname | cut -d '.' -f 1,2,3)
+rhel_major=$(awk -v _kernel_version=$kernel_version_short '$0~_kernel_version {print $2}' $VERSION_LIST | cut -c -1)
+rhel_minor=$(awk -v _kernel_version=$kernel_version_short '$0~_kernel_version {print $2}' $VERSION_LIST | cut -c 3-)
+echo $block
+echo $rhel_major
+echo $rhel_minor
+echo "version above"
+echo $block
 kdump_check() {
   echo
   kdump_check_main
