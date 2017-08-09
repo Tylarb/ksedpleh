@@ -10,6 +10,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 source $DIR/reboot_rca.sh
 source $DIR/oracle_tune.sh
 source $DIR/kdump_check.sh
+source $DIR/sar_convert.sh
 VERSION_LIST="$DIR/kernel_list.txt"
 
 
@@ -65,16 +66,13 @@ else
   hardware=''
 fi
 
-# kernel version/RHEL version  EDIT HERE
+# kernel version/RHEL version
 kernel_version_full=$(awk '{print $3}' uname)
 kernel_version_short=$(awk '{print $3}' uname | cut -d '.' -f 1,2,3)
 rhel_major=$(awk -v _kernel_version=$kernel_version_short '$0~_kernel_version {print $2}' $VERSION_LIST | cut -c -1)
 rhel_minor=$(awk -v _kernel_version=$kernel_version_short '$0~_kernel_version {print $2}' $VERSION_LIST | cut -c 3-)
-echo $block
-echo $rhel_major
-echo $rhel_minor
-echo "version above"
-echo $block
+
+
 kdump_check() {
   echo
   kdump_check_main
@@ -103,7 +101,7 @@ run_all() {
 
 # inputs
 
-while getopts "hkroa" opt; do
+while getopts "hkrosa" opt; do
   case "$opt" in
 
   h)
@@ -121,6 +119,9 @@ while getopts "hkroa" opt; do
   ;;
   a)
   run_all
+  ;;
+  s)
+  sar_convert
   ;;
   *)
   show_help
