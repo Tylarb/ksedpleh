@@ -95,13 +95,15 @@ run_all() {
   reboot_rca
 }
 
-
+sar_convert(){
+  sar_convert_main
+}
 
 
 
 # inputs
 
-while getopts "hkrosa" opt; do
+while getopts "hkros:a" opt; do
   case "$opt" in
 
   h)
@@ -121,6 +123,7 @@ while getopts "hkrosa" opt; do
   run_all
   ;;
   s)
+  sar_file=$2
   sar_convert
   ;;
   *)
@@ -135,4 +138,3 @@ echo $block
 
 
 shift $((OPTIND-1))
-UY
