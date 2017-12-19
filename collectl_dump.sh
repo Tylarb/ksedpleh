@@ -10,6 +10,14 @@ collectl -oD -smM --verbose -p $collectl_file > output/M.txt
 echo "M subsys complete"
 collectl -oD -scC --verbose -p $collectl_file > output/C.txt
 echo "C subsys complete"
+
+collectl -oD -sd --verbose -p $collectl_file > output/d.txt
+echo "d subsys complete"
+
+
+collectl -oD -sdD --verbose -p $collectl_file > output/D.txt
+echo "D subsys complete"
+
 collectl -oD -sZ --top syst --verbose -p $collectl_file > output/Z_syst.txt
 echo "Z syst complete"
 
